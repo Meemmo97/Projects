@@ -48,14 +48,13 @@ module.exports = async function (context, req) {
         const customFfmpegPath = join(__dirname, 'bin', 'ffmpeg');
         if (existsSync(customFfmpegPath)) {
           ffmpegBin = customFfmpegPath;
-          try { chmodSync(ffmpegBin, 0o755); } catch (e) { context.log('chmod ffmpeg failed:', e.message); }
           context.log('Using custom static ffmpeg binary:', ffmpegBin);
         } else {
           ffmpegBin = 'ffmpeg';
           context.log('Falling back to system ffmpeg');
         }
       } else {
-        try { chmodSync(ffmpegBin, 0o755); } catch (e) { context.log('chmod ffmpeg failed:', e.message); }
+  // ...existing code...
       }
 
     // ffmpeg: WAV PCM 16-bit, mono, 16kHz
