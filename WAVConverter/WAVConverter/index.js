@@ -10,6 +10,9 @@ try {
 }
 
 module.exports = async function (context, req) {
+  // Diagnostic: log ffmpeg-static path and existence
+  context.log('ffmpeg-static path:', ffmpeg);
+  context.log('ffmpeg-static exists:', ffmpeg && existsSync(ffmpeg));
   // ...existing code...
   try {
     const { name = 'audio.wav', contentBytes } = req.body || {};
