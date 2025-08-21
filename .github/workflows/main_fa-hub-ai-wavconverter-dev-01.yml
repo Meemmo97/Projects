@@ -38,13 +38,15 @@ jobs:
           popd
 
       - name: Zip artifact for deployment
-        run: cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} && zip -r ../release.zip ./*
+        run: |
+          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          zip -r ../../release.zip ./*
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: WAVConverter/release.zip
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
