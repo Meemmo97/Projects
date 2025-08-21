@@ -21,7 +21,13 @@ module.exports = async function (context, req) {
   const inPath  = join(tmpdir(), 'in.tmp');
   const outPath = join(tmpdir(), 'out.wav');
 
-  // Rimuovo eventuale prefisso data URL e decodifico base64
+  // Log the data URI prefix for debugging
+  const dataUriMatch = contentBytes.match(/^data:([^;]+);base64,/);
+  const mimeType = dataUriMatch ? dataUriMatch[1] : 'unknown';
+  context.log('Received audio mime type:', mimeType);
+  context.log('Data URI prefix:', contentBytes.slice(0, 50));
+
+  // Remove data URI prefix and decode base64
   const base64Clean = contentBytes.replace(/^data:.*;base64,/, '');
   const buf = Buffer.from(base64Clean, 'base64');
   writeFileSync(inPath, buf);
