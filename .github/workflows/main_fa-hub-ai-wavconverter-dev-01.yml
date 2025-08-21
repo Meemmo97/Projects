@@ -43,8 +43,8 @@ jobs:
 
       - name: Zip Function App
         run: |
-            cd WAVConverter/WAVConverter
-            zip -r ../../release.zip .
+          cd WAVConverter
+          zip -r ../release.zip .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
