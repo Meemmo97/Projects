@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'WAVConverter/WAVConverter' # path corretto alla function app
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'WAVConverter' # path corretto alla function app
   NODE_VERSION: '20' # set this to the node version to use (supports 8.x, 10.x, 12.x)
 
 jobs:
@@ -27,6 +27,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
+
+
+      - name: Set permissions for function files
+        run: chmod -R 755 WAVConverter/WAVConverter
 
       - name: 'Resolve Project Dependencies Using Npm'
         shell: bash
