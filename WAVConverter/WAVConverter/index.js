@@ -10,9 +10,7 @@ try {
 }
 
 module.exports = async function (context, req) {
-  // Log diagnostico: dimensione e primi byte
-  context.log('File size:', buf.length);
-  context.log('First bytes:', buf.slice(0, 16));
+  // ...existing code...
   try {
     const { name = 'audio.wav', contentBytes } = req.body || {};
     if (!contentBytes) {
@@ -27,6 +25,10 @@ module.exports = async function (context, req) {
   const base64Clean = contentBytes.replace(/^data:.*;base64,/, '');
   const buf = Buffer.from(base64Clean, 'base64');
   writeFileSync(inPath, buf);
+
+  // Log diagnostico: dimensione e primi byte
+  context.log('File size:', buf.length);
+  context.log('First bytes:', buf.slice(0, 16));
 
       // Fallback: use system ffmpeg, or bin/ffmpeg if not found
       let ffmpegBin = ffmpeg;
