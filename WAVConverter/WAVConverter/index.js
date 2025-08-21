@@ -29,6 +29,8 @@ module.exports = async function (context, req) {
   // Log diagnostico: dimensione e primi byte
   context.log('File size:', buf.length);
   context.log('First bytes:', buf.slice(0, 16));
+  context.log('First bytes (ascii):', buf.slice(0, 16).toString('ascii'));
+  context.log('First bytes (hex):', buf.slice(0, 16).toString('hex'));
 
   // Accept WEBM input and convert to WAV using ffmpeg
   // ...existing code...
@@ -61,7 +63,15 @@ module.exports = async function (context, req) {
     if (result.error || result.status !== 0) {
       const details = (result && (result.stderr || result.error?.message)) || null;
       context.log('ffmpeg failed', { status: result.status, error: result.error?.message, stderr: result.stderr });
-      context.res = { status: 500, body: { error: 'ffmpeg failed', details } };
+      context.res = {
+        status: 500,
+        body: {
+          error: 'ffmpeg failed',
+          details,
+          firstBytesAscii: buf.slice(0, 16).toString('ascii'),
+          firstBytesHex: buf.slice(0, 16).toString('hex')
+        }
+      };
       return;
     }
 
