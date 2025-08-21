@@ -30,16 +30,8 @@ module.exports = async function (context, req) {
   context.log('File size:', buf.length);
   context.log('First bytes:', buf.slice(0, 16));
 
-  // Check if file is likely a WAV (starts with 'RIFF')
-  const wavSignature = buf.slice(0, 4).toString('ascii');
-  context.log('WAV signature:', wavSignature);
-  if (wavSignature !== 'RIFF') {
-    context.res = {
-      status: 400,
-      body: { error: "Input file is not a valid WAV (missing 'RIFF' signature)", firstBytes: buf.slice(0, 16).toString('hex') }
-    };
-    return;
-  }
+  // Accept WEBM input and convert to WAV using ffmpeg
+  // ...existing code...
 
       // Fallback: use system ffmpeg, or bin/ffmpeg if not found
       let ffmpegBin = ffmpeg;
