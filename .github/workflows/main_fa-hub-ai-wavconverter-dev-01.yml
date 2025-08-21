@@ -42,7 +42,7 @@ jobs:
           popd
 
       - name: Zip artifact for deployment
-        run: zip -j release.zip WAVConverter/*
+        run: zip -r release.zip WAVConverter/*
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
