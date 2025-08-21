@@ -1,0 +1,13 @@
+{
+  "name": "setvmproxy-functions",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "func start",
+    "start:host": "func start --script-root ."
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {}
+}

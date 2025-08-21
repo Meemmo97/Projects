@@ -1,0 +1,9 @@
+{
+  "name": "audio-convert",
+  "version": "1.0.0",
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "install": "^0.13.0",
+    "npm": "^11.5.2"
+  }
+}
