@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'WAVConverter/WAVConverter' # path corretto alla function app
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'WAVConverter' # path corretto alla function app
   NODE_VERSION: '20' # set this to the node version to use (supports 8.x, 10.x, 12.x)
 
 jobs:
@@ -41,8 +41,10 @@ jobs:
           npm run test --if-present
           popd
 
-      - name: Zip artifact for deployment
-        run: zip -r release.zip WAVConverter/WAVConverter/*
+      - name: Zip Function App
+        run: |
+          cd WAVConverter/
+          zip -r ../../release.zip .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -80,4 +82,3 @@ jobs:
           app-name: 'fa-hub-ai-wavconverter-dev-01'
           slot-name: 'Production'
           package: release.zip
-          
