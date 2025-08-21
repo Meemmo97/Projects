@@ -48,13 +48,13 @@ module.exports = async function (context, req) {
         const customFfmpegPath = join(__dirname, 'bin', 'ffmpeg');
         if (existsSync(customFfmpegPath)) {
           ffmpegBin = customFfmpegPath;
-          context.log('Using custom static ffmpeg binary:', ffmpegBin);
+          context.log('Using local custom ffmpeg binary:', ffmpegBin);
         } else {
           ffmpegBin = 'ffmpeg';
           context.log('Falling back to system ffmpeg');
         }
       } else {
-  // ...existing code...
+        context.log('Using ffmpeg-static binary:', ffmpegBin);
       }
 
     // ffmpeg: WAV PCM 16-bit, mono, 16kHz
