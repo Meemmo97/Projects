@@ -92,7 +92,8 @@ AutomationSqlScheduler/
 |-- runbooks/
 |   `-- Invoke-SqlStoredProcedure.ps1
 `-- sql/
-    `-- bootstrap-uami-db-user.sql
+    |-- bootstrap-uami-db-user.sql
+    `-- configure-lightmes-uami-permissions.sql
 ```
 
 ## API usate
@@ -278,6 +279,18 @@ GRANT EXECUTE ON OBJECT::[schema].[procedure] TO [nome-uami];
 ```
 
 Non assegna ruoli database né grant globali.
+
+Per il runbook specifico `Invoke-TwoSqlStoredProcedures.ps1` è disponibile
+anche `sql/configure-lightmes-uami-permissions.sql`, già configurato per:
+
+- `dbo.sp_SplitOrder` e `dbo.sp_STD_DateMin`;
+- `dbo.Shifts`, `dbo.OperationsManaged` e `dbo.vv_Operations`;
+- permessi `SELECT, INSERT, UPDATE, DELETE, ALTER` sui tre oggetti;
+- rimozione dell'eventuale membership temporanea `db_owner`.
+
+Il permesso `ALTER` è mantenuto intenzionalmente su tutti e tre gli oggetti
+come richiesto. È più ampio dei permessi DML e permette modifiche strutturali;
+su `OperationsManaged` copre anche il requisito di `TRUNCATE TABLE`.
 
 #### Alternativa `WITH SID ..., TYPE = E`
 
